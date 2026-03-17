@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Allow all pages except app (no need to index the builder itself)
+Disallow: /app/
+
+# Allow all public content
+Allow: /blog/
+Allow: /examples/
+Allow: /features.html
+Allow: /faq.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /examples.html
+
+# Sitemap location
+Sitemap: https://cvforge.app/sitemap.xml

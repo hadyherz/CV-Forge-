@@ -1,0 +1,40 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# ── Security headers on all pages ─────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# ── Payment API routes → Netlify Functions ─────────────────────
+[[redirects]]
+  from = "/create-payment"
+  to = "/.netlify/functions/create-payment"
+  status = 200
+
+[[redirects]]
+  from = "/verify-payment"
+  to = "/.netlify/functions/verify-payment"
+  status = 200
+
+# ── Paymob redirects user back here after payment ──────────────
+# Must go to /app/ so the app can read the ?payment=success param
+[[redirects]]
+  from = "/payment-callback"
+  to = "/app/index.html"
+  status = 200
+
+# ── App SPA routing — /app/* always serves the app ─────────────
+[[redirects]]
+  from = "/app/*"
+  to = "/app/index.html"
+  status = 200
+
+# ── Website pages — served as static HTML (no rewrite needed) ──
+# Netlify serves .html files directly, so no rules needed here.
+# Blog and examples subfolders also serve their index.html directly.
